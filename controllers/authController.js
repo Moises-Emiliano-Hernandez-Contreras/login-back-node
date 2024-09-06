@@ -5,21 +5,22 @@ let users = []; // Simulación de una base de datos en memoria
 
 // Registro de usuario
 exports.register = async (req, res) => {
-    //extraigo los parametros recibidos por post
+    console.log(req.body);
+    ////extraigo los parametros recibidos por post
     const { username, password } = req.body;
-    //en caso de que el usuario ya exista
+    ////en caso de que el usuario ya exista
     const existingUser = users.find(user => user.username === username);
     if (existingUser) {
         return res.status(400).json({ message: 'El usuario ya existe' });
     }
-    //encriptandig
+    ////encriptandig
     const hashedPassword = await bcrypt.hash(password, 10);
     //creando el objeto usuario
     const newUser = { username, password: hashedPassword };
     //pasandolo al arreglo
     users.push(newUser);
-
-    res.status(201).json({ message: 'Usuario registrado exitosamente' });
+//
+    //res.status(201).json({ message: 'Usuario registrado exitosamente' });
 };
 
 // Login de usuario
